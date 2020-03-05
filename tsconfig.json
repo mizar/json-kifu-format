@@ -5,6 +5,7 @@
     "declaration": true,
     "module": "commonjs",
     "noEmitOnError": true,
+    "outDir": "./dist/src",
     "target": "es5"
   }
 }

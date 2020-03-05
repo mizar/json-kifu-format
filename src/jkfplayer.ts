@@ -205,12 +205,12 @@ export default class JKFPlayer {
     public shogi: Shogi;
     public kifu: IJSONKifuFormat;
     public tesuu: number;
-    public forkPointers: Array<{te: number, forkIndex: number}> = [];
+    public forkPointers: { te: number, forkIndex: number }[] = [];
     // tslint:disable-next-line:variable-name
     private forks_ = null;
     // tslint:disable-next-line:variable-name
     private currentStream_: IMoveFormat[] = null;
-    get forks(): Array<{te: number; moves: IMoveFormat[]}> {
+    get forks(): { te: number; moves: IMoveFormat[] }[] {
         if (this.forks_ === null) {
             this.updateForksAndCurrentStream();
         }
@@ -255,7 +255,7 @@ export default class JKFPlayer {
         return true;
     }
     // tesuu手目へ行く
-    public goto(tesuu: number|string) {
+    public goto(tesuu: number | string) {
         if (typeof tesuu === "string") {
             tesuu = Number(tesuu);
         }
@@ -273,7 +273,7 @@ export default class JKFPlayer {
         if (limit === 0) { throw new Error("tesuu overflows"); }
     }
     // tesuu手前後に移動する
-    public go(tesuu: number|string) {
+    public go(tesuu: number | string) {
         if (typeof tesuu === "string") {
             tesuu = Number(tesuu);
         }
@@ -283,7 +283,7 @@ export default class JKFPlayer {
         this.goto(this.tesuu + tesuu);
     }
     // 現在の局面から別れた分岐のうちnum番目の変化へ1つ進む
-    public forkAndForward(num: number|string): boolean {
+    public forkAndForward(num: number | string): boolean {
         if (typeof num === "string") {
             num = parseInt(num, 10);
         }
@@ -327,7 +327,7 @@ export default class JKFPlayer {
             }
         }
         this.doMove(move); // 動かしてみる(throwされうる)
-        const newMove = {move};
+        const newMove = { move };
         const addToFork = this.tesuu < this.getMaxTesuu();
         let next;
         if (addToFork) {
@@ -377,7 +377,7 @@ export default class JKFPlayer {
     public getState() {
         return JKFPlayer.getState(this.shogi);
     }
-    public getReadableKifuState(): Array<{kifu: string; forks: string[]; comments: string[] }> {
+    public getReadableKifuState(): { kifu: string; forks: string[]; comments: string[] }[] {
         const ret = [];
         for (let i = 0; i <= this.getMaxTesuu(); i++) {
             ret.push({
@@ -390,7 +390,7 @@ export default class JKFPlayer {
     }
 
     private updateForksAndCurrentStream() {
-        const forks: Array<{te: number, moves: IMoveFormat[]}> = [];
+        const forks: { te: number, moves: IMoveFormat[] }[] = [];
         let currentStream: IMoveFormat[] = [];
         let currentFork: IMoveFormat[] = this.kifu.moves;
         let tesuuOffset = 0;

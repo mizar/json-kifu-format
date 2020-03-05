@@ -4,29 +4,30 @@
  * This software is released under the MIT License.
  * http://opensource.org/licenses/mit-license.php
  */
-import {Color} from "shogi.js";
-
+import { Color } from "shogi.js";
 /**
  * Kifu format
  */
 export interface IJSONKifuFormat {
-    header: { [index: string]: string; };
+    header: {
+        [index: string]: string;
+    };
     initial?: {
         preset: string;
         data?: IStateFormat;
     };
     moves: IMoveFormat[];
 }
-
 /**
  * Game state
  */
 export interface IStateFormat {
     color: Color;
     board: IPiece[][];
-    hands: { [index: string]: number }[];
+    hands: {
+        [index: string]: number;
+    }[];
 }
-
 /**
  * Piece
  * TODO: Make color and kind nonnull
@@ -35,7 +36,6 @@ export interface IPiece {
     color?: Color;
     kind?: string;
 }
-
 /**
  * Abstract Move
  */
@@ -49,7 +49,6 @@ export interface IMoveMoveFormat {
     capture?: string;
     relative?: string;
 }
-
 /**
  * Move
  */
@@ -63,7 +62,6 @@ export interface IMoveFormat {
     special?: string;
     forks?: IMoveFormat[][];
 }
-
 /**
  * Elapsed Time
  */
@@ -72,7 +70,6 @@ export interface ITimeFormat {
     m: number;
     s: number;
 }
-
 /**
  * Position on boards
  */
